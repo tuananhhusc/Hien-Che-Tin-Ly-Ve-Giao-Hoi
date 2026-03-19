@@ -1,0 +1,155 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --reader-font-size: 1;
+    --reader-line-height: 1.85;
+    --reader-max-width: 56rem;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
+  body {
+    @apply bg-parchment text-ink font-body antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-heading tracking-tight;
+  }
+}
+
+@layer components {
+  .skip-link {
+    @apply absolute left-2 top-2 z-[100] rounded-md bg-ink px-3 py-2 text-sm font-semibold text-offwhite opacity-0 focus:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold;
+  }
+
+  .journal-prose {
+    @apply prose prose-lg prose-catholic max-w-none;
+    text-wrap: pretty;
+    -webkit-font-smoothing: antialiased;
+    font-variant-numeric: oldstyle-nums;
+  }
+
+  .reader-article {
+    width: 100%;
+    max-width: var(--reader-max-width);
+    font-size: calc(1rem * var(--reader-font-size));
+  }
+
+  .reader-article :where(p, li, blockquote) {
+    line-height: var(--reader-line-height);
+  }
+
+  .journal-prose :where(section) {
+    scroll-margin-top: 3.25rem;
+  }
+
+  .journal-prose :where(section > p) {
+    text-align: justify;
+    hyphens: auto;
+    margin-bottom: 0;
+    margin-top: 1.05em;
+    text-indent: 1.4em;
+  }
+
+  .journal-prose :where(section > p:first-of-type) {
+    text-indent: 0;
+    margin-top: 1em;
+  }
+
+  .journal-prose :where(section > p:first-of-type)::first-letter {
+    color: theme('colors.purple');
+    font-family: var(--font-heading), serif;
+    float: left;
+    font-size: 4.85rem;
+    line-height: 0.72;
+    margin-top: 0.22rem;
+    margin-right: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    text-shadow: 1px 1px 0 theme('colors.gold/30');
+  }
+
+  .journal-prose :where(h2) {
+    border-top: 1px dashed rgba(212, 175, 55, 0.45);
+    padding-top: 2rem;
+    margin-top: 4rem;
+    position: relative;
+  }
+
+  .journal-prose :where(h2)::before {
+    content: "";
+    position: absolute;
+    top: -1px;
+    left: 0;
+    width: 3rem;
+    height: 3px;
+    background: #D4AF37;
+  }
+
+  .journal-prose :where(h3) {
+    margin-top: 1.35rem;
+  }
+
+  .journal-prose :where(.heading-anchor) {
+    @apply ml-2 inline-flex items-center rounded-sm border border-gold/40 px-1.5 py-0.5 align-middle text-xs font-semibold no-underline opacity-0 transition hover:border-royal/60 hover:text-royal;
+  }
+
+  .journal-prose :where(h2:hover .heading-anchor, h3:hover .heading-anchor) {
+    opacity: 1;
+  }
+
+  .journal-prose :where(.references-list) {
+    list-style: decimal;
+    padding-left: 1.35rem;
+    margin-top: 1rem;
+  }
+
+  .journal-prose :where(.references-list > li) {
+    margin-top: 0.85rem;
+    margin-bottom: 0;
+    padding-left: 0.2rem;
+    text-indent: 0;
+    text-align: left;
+    font-size: 0.95em;
+    line-height: 1.75;
+  }
+
+  .reader-panel {
+    @apply rounded-xl border border-gold/45 bg-offwhite/90 p-3 shadow-sm;
+  }
+
+  .footnote-trigger {
+    font-variant-numeric: tabular-nums;
+  }
+
+  .reader-search-hit {
+    background: rgba(212, 175, 55, 0.3);
+    border-radius: 0.2rem;
+    padding: 0 0.12rem;
+  }
+
+  .reader-search-hit[data-active="true"] {
+    background: rgba(237, 40, 44, 0.22);
+    box-shadow: 0 0 0 1px rgba(237, 40, 44, 0.5);
+  }
+}
+
+@media (max-width: 1023px) {
+  .journal-prose :where(section) {
+    scroll-margin-top: 1.15rem;
+  }
+}
